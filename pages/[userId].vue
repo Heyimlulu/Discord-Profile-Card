@@ -5,7 +5,7 @@
 <script setup lang="ts">
 const userId = useRoute().params.userId;
 const { data: dataDiscordUser } = await useFetch<DiscordLookupResponse>(
-  `https://discord-lookup-rest-api.deeploy.ing/v1/user/lookup/${userId}`
+  `https://rest-api.discord.name/v1/user/lookup/${userId}`
 );
 const response = dataDiscordUser.value;
 const data = response?.data;

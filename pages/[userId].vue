@@ -5,7 +5,7 @@
 <script setup lang="ts">
 const userId = useRoute().params.userId;
 const { data: dataDiscordUser } = await useFetch<DiscordLookupResponse>(
-  `https://rest-api.discord.name/v1/user/lookup/${userId}`
+  `https://api-v1.discord.name/v1/user/lookup/${userId}`
 );
 const response = dataDiscordUser.value;
 const data = response?.data;
@@ -24,7 +24,7 @@ if (data && response?.success) {
     link: [
       {
         rel: "canonical",
-        href: `https://discord.name/${data.id}`,
+        href: `https://discord.my/${data.id}`,
       },
     ],
   });
@@ -39,12 +39,12 @@ if (data && response?.success) {
       : `https://cdn.discordapp.com/embed/avatars/${Math.floor(
           Math.random() * 5
         )}.png`,
-    ogUrl: `https://discord.name/${data.id}`,
+    ogUrl: `https://discord.my/${data.id}`,
     twitterCard: "summary_large_image",
   });
 } else {
   useHead({
-    title: "Discord Lookup",
+    title: "Invalid User ID",
   });
 }
 

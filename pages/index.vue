@@ -47,8 +47,12 @@ useHead({
     {
       name: "description",
       content: "Generate a Discord profile card using a user's ID."
+    },
+    {
+      name: "keywords",
+      content: "Discord Profile, Discord Profile Card, Discord User Card, Discord User Profile, Discord User Profile Card, Discord User Card Generator, Discord User Profile Card Generator, Discord, Profile, Card, Discord.My"
     }
-  ]
+  ],
 });
 
 useSeoMeta({

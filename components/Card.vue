@@ -16,14 +16,14 @@ const { user, success } = props;
 <template>
   <div
     v-if="success"
-    class="flex flex-col md:flex-row rounded-3xl bg-white cursor-pointer overflow-hidden [transition:all_0.3s] max-w-full min-w-[20rem] min-h-[17.5rem] shadow-neutral-500 shadow-md md:hover:shadow-lg md:hover:shadow-neutral-300 md:hover:scale-105 md:hover:rotate-2 ease-out"
+    class="group flex flex-col md:flex-row bg-white rounded-2xl overflow-hidden transition-all duration-300 max-w-full min-w-[20rem] min-h-[17.5rem]"
   >
-    <div class="flex">
+    <div class="relative flex-shrink-0">
       <NuxtImg
         v-if="user?.avatar?.url"
         :src="`${user.avatar?.url}?size=1024`"
         :alt="`${user.displayName || user.username}`"
-        class="size-full md:size-80 object-cover"
+        class="w-full md:w-80 h-64 md:h-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
       <NuxtImg
         v-else
@@ -31,52 +31,76 @@ const { user, success } = props;
           Math.random() * 5
         )}.png`"
         :alt="`${user?.displayName || user?.username}`"
-        class="size-full md:size-80 object-cover"
+        class="w-full md:w-80 h-64 md:h-full object-cover transition-transform duration-500 group-hover:scale-110"
       />
     </div>
-    <div class="flex flex-col justify-start p-4">
-      <h2
-        class="flex items-center gap-x-1 text-lg md:text-3xl font-bold mt-auto"
-      >
-        {{ user?.displayName || user?.username }}
-        <span class="text-xs md:text-lg" v-if="user && user.accountAge > '1'"
-          >({{ user?.accountAge }} years old)</span
+    <div class="flex flex-col flex-grow p-6 space-y-4">
+      <div>
+        <h2
+          class="flex items-center gap-2 text-2xl md:text-3xl font-bold text-gray-900"
         >
-        <StarIcon
-          v-if="user?.id === '265896171384340480'"
-          class="text-amber-400 -ml-0.5 h-5 w-5"
-          aria-hidden="true"
-        />
-      </h2>
-      <div class="flex gap-x-4 my-4">
-        <NuxtImg
+          {{ user?.displayName || user?.username }}
+          <span
+            v-if="user && user.accountAge > '1'"
+            class="text-sm md:text-base font-medium text-gray-500"
+          >
+            ({{ user?.accountAge }} year{{
+              parseInt(user?.accountAge) > 1 ? "s" : ""
+            }}
+            on Discord)
+          </span>
+          <div class="group/tooltip relative">
+            <StarIcon
+              v-if="user?.id === '265896171384340480'"
+              class="h-6 w-6 text-amber-400"
+              aria-hidden="true"
+            />
+            <div
+              class="absolute left-full ml-2 top-1/2 -translate-y-1/2 px-4 py-1 bg-amber-400 text-white text-sm rounded opacity-0 invisible md:group-hover/tooltip:opacity-100 md:group-hover/tooltip:visible transition-all whitespace-nowrap"
+            >
+              Website Owner
+            </div>
+          </div>
+        </h2>
+      </div>
+
+      <div class="flex gap-3">
+        <div
           v-for="badge in user?.badges"
           :key="badge.name"
-          :src="badge.image"
-          :alt="badge.name"
-          class="h-6"
-        />
+          class="group/tooltip relative"
+        >
+          <NuxtImg
+            :src="badge.image"
+            :alt="badge.name"
+            class="h-7 transition-transform hover:scale-110"
+          />
+          <div
+            v-if="!badge.image.includes('Nitro.svg')"
+            class="absolute -top-8 left-1/2 -translate-x-1/2 px-4 py-1 bg-gray-900 text-white text-sm rounded opacity-0 invisible md:group-hover/tooltip:opacity-100 md:group-hover/tooltip:visible transition-all whitespace-nowrap"
+          >
+            {{ badge.name }}
+          </div>
+        </div>
       </div>
-      <div class="mt-auto">
-        <div class="flex flex-col md:flex-row border-t-2 pt-4 gap-3">
+
+      <div class="mt-auto pt-6 border-t border-gray-200">
+        <div class="flex flex-col sm:flex-row gap-3">
           <NuxtLink
             :href="`discord://-/users/${user?.id}`"
             rel="noopener noreferrer"
-            class="flex gap-x-1.5 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-[#5865F2] text-white font-medium transition-colors hover:bg-[#4752C4] focus:outline-none focus:ring-2 focus:ring-[#5865F2] focus:ring-offset-2"
           >
-            <ArrowTopRightOnSquareIcon
-              class="-ml-0.5 h-5 w-5"
-              aria-hidden="true"
-            />
+            <ArrowTopRightOnSquareIcon class="h-5 w-5" aria-hidden="true" />
             View on Discord
           </NuxtLink>
           <NuxtLink
             :href="`https://discord.name/${user?.id}`"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex gap-x-1.5 rounded-md bg-neutral-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-neutral-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-600"
+            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-gray-800 text-white font-medium transition-colors hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-800 focus:ring-offset-2"
           >
-            <LinkIcon class="-ml-0.5 h-5 w-5" aria-hidden="true" />
+            <LinkIcon class="h-5 w-5" aria-hidden="true" />
             View on Discord.Name
           </NuxtLink>
         </div>

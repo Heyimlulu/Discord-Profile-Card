@@ -1,5 +1,7 @@
 body {
-  background-color: #d8e3fa;
+  background-color: #262626;
+  background-image: url("/assets/img/landing-page-background-pattern.png");
+  background-size: 100rem;
   display: grid;
   place-items: center;
   height: 100vh;

@@ -23,5 +23,25 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
-  modules: ["@nuxt/image"],
+  modules: ["@nuxt/image", "nuxt-gtag"],
+
+  gtag: {
+    enabled: process.env.NODE_ENV === 'production',
+    id: 'G-0FKE60WBZB',
+    initCommands: [
+      ['consent', 'default', {
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        ad_storage: 'denied',
+        analytics_storage: 'denied',
+        wait_for_update: 500,
+      }]
+    ],
+    config: {
+      page_title: 'Discord Profile Card',
+      send_page_view: true,
+      cookie_domain: 'auto',
+      cookie_flags: 'SameSite=None;Secure'
+    }
+  },
 });

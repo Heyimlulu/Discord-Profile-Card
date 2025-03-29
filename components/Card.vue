@@ -10,10 +10,10 @@ const { user, success } = props;
 <template>
   <div
     v-if="success"
-    class="bg-white rounded-xl overflow-hidden shadow-sm w-[30rem]"
+    class="bg-white rounded-xl overflow-hidden shadow-sm w-full sm:w-[30rem] mx-auto"
   >
     <!-- Banner/Avatar Section -->
-    <div class="relative h-32">
+    <div class="relative h-24 sm:h-32">
       <div
         v-if="user?.banner?.url"
         :style="{ backgroundImage: `url(${user.banner.url}?size=2048)` }"
@@ -23,13 +23,13 @@ const { user, success } = props;
         v-else
         class="w-full h-full bg-gradient-to-r from-pink-400 to-blue-400"
       ></div>
-      <div class="absolute -bottom-12 left-4">
+      <div class="absolute -bottom-10 sm:-bottom-12 left-4">
         <div class="relative">
           <img
             v-if="user?.avatar?.url"
             :src="`${user.avatar?.url}?size=128`"
             :alt="`${user.displayName || user.username}`"
-            class="w-24 h-24 rounded-full border-4 border-white object-cover"
+            class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white object-cover"
           />
           <img
             v-else
@@ -37,14 +37,14 @@ const { user, success } = props;
               Math.random() * 5
             )}.png`"
             :alt="`${user?.displayName || user?.username}`"
-            class="w-24 h-24 rounded-full border-4 border-white object-cover"
+            class="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white object-cover"
           />
         </div>
       </div>
     </div>
 
     <!-- Content Section -->
-    <div class="pt-14 px-4 pb-4">
+    <div class="pt-12 sm:pt-14 px-3 sm:px-4 pb-4">
       <!-- User Info -->
       <div class="mb-4">
         <h2 class="text-gray-900 font-semibold text-lg flex items-center gap-2">

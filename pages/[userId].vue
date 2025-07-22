@@ -4,8 +4,9 @@
 
 <script setup lang="ts">
 const userId = useRoute().params.userId;
+const config = useRuntimeConfig();
 const { data: dataDiscordUser } = await useFetch<DiscordLookupResponse>(
-  `https://api-v1.discord.name/v1/user/lookup/${userId}`
+  `${config.public.apiBase}/v1/user/lookup/${userId}`
 );
 const response = dataDiscordUser.value;
 const data = response?.data;

@@ -1,5 +1,10 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.API_BASE_URL ? process.env.API_BASE_URL : 'https://api-v1.discord.name',
+    },
+  },
   app: {
     head: {
       meta: [

@@ -32,7 +32,6 @@
             type="text"
             placeholder="Enter User ID / Any ID"
             class="block w-full rounded-lg border border-gray-600 bg-[#1a1a1a] px-4 py-3 text-white placeholder-gray-400 shadow-sm transition-all duration-200 focus:border-[#5865F2] focus:ring-2 focus:ring-[#5865F2] focus:ring-opacity-50"
-            @input="validateInput"
           />
           <div class="mt-4" :class="{ 'opacity-60': !isInputValid }">
             <NuxtLink
@@ -49,30 +48,20 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      userId: "",
-      isInputValid: false,
-    };
-  },
-  methods: {
-    validateInput() {
-      const id = this.userId;
-      const isNumeric = /^\d+$/.test(id);
-      const validLength = id.length >= 15 && id.length <= 22;
-      this.isInputValid = isNumeric && validLength;
-    },
-  },
-};
-</script>
-
-<script setup>
+<script setup lang="ts">
+import { ref, computed } from "vue";
 import {
   InformationCircleIcon,
   IdentificationIcon,
 } from "@heroicons/vue/20/solid";
+
+const userId = ref("");
+const isInputValid = computed(() => {
+  const id = userId.value;
+  const isNumeric = /^\d+$/.test(id);
+  const validLength = id.length >= 15 && id.length <= 22;
+  return isNumeric && validLength;
+});
 
 useHead({
   title: "Discord Profile Card",
